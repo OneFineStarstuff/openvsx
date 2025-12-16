@@ -235,6 +235,16 @@ public class ExtensionValidator {
         }
     }
 
+    /**
+     * Checks if the provided URL is invalid.
+     *
+     * This method first verifies if the input string is empty. If it starts with "git+" and has a length greater than 4,
+     * it removes the prefix. It then attempts to create a URL object using the modified string and checks if the protocol
+     * is either "http" or "https" while ensuring the host is empty. If any exceptions occur during URL creation,
+     * the method considers the URL invalid.
+     *
+     * @param value the URL string to be validated
+     */
     private boolean isInvalidURL(String value) {
         if (StringUtils.isEmpty(value))
             return true;

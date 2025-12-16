@@ -9,6 +9,8 @@
  ********************************************************************************/
 package org.eclipse.openvsx;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.openvsx.entities.ExtensionVersion;
 import org.eclipse.openvsx.entities.SemanticVersion;
@@ -240,7 +242,7 @@ public class ExtensionValidator {
             value = value.substring(4);
         
         try {
-            var url = new URL(value);
+            var url = Urls.create(value, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
             return url.getProtocol().matches("http(s)?") && StringUtils.isEmpty(url.getHost());
         } catch (MalformedURLException exc) {
             return true;
